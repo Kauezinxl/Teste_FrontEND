@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor de Umidade - ESP32</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; text-align: center; }
+        .container { background: #fff; padding: 2em; margin: 2em auto; border-radius: 8px; box-shadow: 0 2px 8px #ccc; max-width: 400px; }
+        .umidade { font-size: 2.5em; color: #2196F3; margin: 1em 0; }
+        .label { font-size: 1.2em; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monitor de Umidade</h1>
+        <div class="label">Umidade Atual:</div>
+        <div class="umidade" id="umidade">-- %</div>
+    </div>
+    <script>
+        var websocket = new WebSocket("ws://172.20.10.2:81/"); // Substitua pelo IP do ESP32, precisa ser o ip publico 
+                                                                // que o celular disponibiliza
+
+        websocket.onopen = function(event) {
+            console.log("Conectado ao WebSocket");
+        };
+
+        websocket.onclose = function(event) {
+            console.log("Desconectado do WebSocket");
+        };
+
+        websocket.onerror = function(event) {
+            console.error("Erro no WebSocket: ", event);
+        };
+    </script>
+    <button onclick="enviarComando('ligar')">Ligar</button>
+    <button onclick="enviarComando('desligar')">Desligar</button>
+
+    <script>
+        function enviarComando(comando) {
+            websocket.send(comando);
+        }
+    </script>
+</body>
+</html>
