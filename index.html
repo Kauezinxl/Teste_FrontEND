@@ -18,7 +18,7 @@
         <div class="umidade" id="umidade">-- %</div>
     </div>
     <script>
-        var websocket = new WebSocket("ws://172.20.10.2:81/"); // Substitua pelo IP do ESP32, precisa ser o ip publico 
+        var websocket = new WebSocket("wss://172.20.10.2:81/"); // Substitua pelo IP do ESP32, precisa ser o ip publico 
                                                                 // que o celular disponibiliza
 
         websocket.onopen = function(event) {
